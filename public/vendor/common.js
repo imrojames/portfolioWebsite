@@ -1,7 +1,20 @@
 // Notification message fadeIn and fadeOut
 $(document).ready(function(){
-    $('.alert').fadeIn(300).delay(1500).fadeOut(400);
+  $('.alert').fadeIn(300).delay(1500).fadeOut(400);
 });
+
+$(function () {
+	$('#example2').DataTable({
+		"paging": true,
+		"lengthChange": true,
+		"searching": true,
+		"ordering": true,
+		"info": true,
+		"autoWidth": true,
+		"responsive": false,
+		"scrollX": true
+	});
+  });
 
 //Close button from add-edit-form
 $('.btn-frm-close-profile').click(function(){
@@ -40,7 +53,7 @@ $('.delete-edu').click(function(){
 			url:'/education/'+eduId+'/delete',
 			type: 'GET',
 			success:function(data){
-				window.location.href = '/resume';
+				window.location.href = '/1438/resume';
 			}
 		});
 	});
@@ -58,7 +71,7 @@ $('.delete-exp').click(function(){
 			url:'/experience/'+expId+'/delete',
 			type: 'GET',
 			success:function(data){
-				window.location.href = '/resume';
+				window.location.href = '/1438/resume';
 			}
 		});
 	});
@@ -76,8 +89,27 @@ $('.delete-portfolio').click(function(){
 			url:'/portfolio/'+expId+'/delete',
 			type: 'GET',
 			success:function(data){
-				window.location.href = '/portfolio';
+				window.location.href = '/1438/portfolio';
 			}
 		});
 	});
 });
+
+// Delete email using modal dialog
+$('.delete-email').click(function(){
+	var id = $(this).parents('td').attr('id');
+	$('#id').val(id);
+	$('#delete-email-modal').modal('show');
+	
+	$('.btn-yes').click(function(){
+		var emailId = $('#id').val();
+		$.ajax({
+			url:'/email/'+emailId+'/delete',
+			type: 'GET',
+			success:function(data){
+				window.location.href = '/1438/email';
+			}
+		});
+	});
+});
+

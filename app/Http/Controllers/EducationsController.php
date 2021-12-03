@@ -4,11 +4,21 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Education;
-use App\Proifle;
+use App\Profile;
+use App\Email;
 use DB;
 
 class EducationsController extends Controller
 {
+    //Global variables
+    public $profile_info, $mail_count;
+
+    public function __construct()
+    {
+        $this->profile_info = DB::select('SELECT * FROM profiles');
+        $this->mail_count = DB::select('SELECT COUNT(status) AS email_count FROM emails WHERE status = "Unread"');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -26,8 +36,9 @@ class EducationsController extends Controller
      */
     public function create()
     {
-        $profiles = DB::select('SELECT * FROM profiles');
-        return view('backEnd/add_edit_forms/add_education_form')->with(['profiles' => $profiles]);
+        $profiles = $this->profile_info;
+        $emails = $this->mail_count;
+        return view('backEnd/add_edit_forms/add_education_form')->with(['profiles' => $profiles, 'emails' => $emails]);
     }
 
     /**
@@ -75,10 +86,11 @@ class EducationsController extends Controller
      */
     public function edit($id)
     {
-        $profiles = DB::select('SELECT * FROM profiles');
+        $profiles = $this->profile_info;
+        $emails = $this->mail_count;
         $educations = DB::select('SELECT * FROM education WHERE id = '.$id);
 
-        return view('backEnd/add_edit_forms/edit_education_form')->with(['profiles' => $profiles, 'educations' => $educations]);
+        return view('backEnd/add_edit_forms/edit_education_form')->with(['profiles' => $profiles, 'educations' => $educations, 'emails' => $emails]);
     }
 
     /**

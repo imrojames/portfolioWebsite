@@ -39,7 +39,7 @@
     </div>
     <br>
     <div class="form-group" align="center">
-      <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Add Experience </button>
+      <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Add Portfolio </button>
       <button type="button" class="btn btn-info btn-frm-close-portfolio">Close</button>
     </div>
     {!!Form::close()!!} 

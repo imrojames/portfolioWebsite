@@ -5,10 +5,20 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Profile;
 use App\Experience;
+use App\Email;
 use DB;
 
 class ExperiencesController extends Controller
 {
+    //Global variables
+    public $profile_info, $mail_count;
+
+    public function __construct()
+    {
+        $this->profile_info = DB::select('SELECT * FROM profiles');
+        $this->mail_count = DB::select('SELECT COUNT(status) AS email_count FROM emails WHERE status = "Unread"');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -25,9 +35,10 @@ class ExperiencesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        $profiles = DB::select('SELECT * FROM profiles');
-        return view('backEnd/add_edit_forms/add_experience_form')->with(['profiles' => $profiles]);
+    {   
+        $emails = $this->mail_count;
+        $profiles = $this->profile_info;
+        return view('backEnd/add_edit_forms/add_experience_form')->with(['profiles' => $profiles, 'emails' => $emails]);
     }
 
     /**
@@ -76,9 +87,10 @@ class ExperiencesController extends Controller
      */
     public function edit($id)
     {
-        $profiles = DB::select('SELECT * FROM profiles');
+        $emails = $this->mail_count;
+        $profiles = $this->profile_info;
         $experiences = DB::select('SELECT * FROM experiences WHERE id = '.$id);
-        return view('backEnd/add_edit_forms/edit_experience_form')->with(['profiles' => $profiles, 'experiences' => $experiences]);
+        return view('backEnd/add_edit_forms/edit_experience_form')->with(['profiles' => $profiles, 'experiences' => $experiences, 'emails' => $emails]);
     }
 
     /**

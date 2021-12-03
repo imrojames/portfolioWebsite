@@ -40,7 +40,7 @@
     </div>
     <br>
     <div class="form-group" align="center">
-      <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Update Experience </button>
+      <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Update Portfolio </button>
       <button type="button" class="btn btn-info btn-frm-close-portfolio">Close</button>
     </div>
     {{Form::hidden('_method', 'PUT')}}

@@ -6,11 +6,20 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Profile;
 use App\Portfolio;
-
+use App\Email;
 use DB;
 
 class PortfoliosController extends Controller
 {
+    //Global variables
+    public $profile_info, $mail_count;
+
+    public function __construct()
+    {
+        $this->profile_info = DB::select('SELECT * FROM profiles');
+        $this->mail_count = DB::select('SELECT COUNT(status) AS email_count FROM emails WHERE status = "Unread"');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -28,8 +37,9 @@ class PortfoliosController extends Controller
      */
     public function create()
     {
-        $profiles = DB::select('SELECT * FROM profiles');
-        return view('backEnd/add_edit_forms/add_portfolio_form')->with(['profiles' => $profiles]);
+        $emails = $this->mail_count;
+        $profiles = $this->profile_info;
+        return view('backEnd/add_edit_forms/add_portfolio_form')->with(['profiles' => $profiles, 'emails' => $emails]);
     }
 
     /**
@@ -88,9 +98,10 @@ class PortfoliosController extends Controller
      */
     public function edit($id)
     {
-        $profiles = DB::select('SELECT * FROM profiles');
+        $emails = $this->mail_count;
+        $profiles = $this->profile_info;
         $portfolios = DB::select('SELECT * FROM portfolios WHERE id = '.$id);
-        return view('backEnd/add_edit_forms/edit_portfolio_form')->with(['profiles' => $profiles, 'portfolios' => $portfolios]);
+        return view('backEnd/add_edit_forms/edit_portfolio_form')->with(['profiles' => $profiles, 'portfolios' => $portfolios, 'emails' => $emails]);
     }
 
     /**

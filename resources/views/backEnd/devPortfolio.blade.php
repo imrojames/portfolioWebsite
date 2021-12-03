@@ -20,7 +20,7 @@
     </div>
 
     <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="100">
-      @if($portfolios >= 1)
+      @if(count($portfolios) > 0)
         @foreach($portfolios as $portfolio)
         <div class="col-lg-4 col-md-6 portfolio-item filter-app">
           <div class="portfolio-wrap">

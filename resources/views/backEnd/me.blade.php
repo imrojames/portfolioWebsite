@@ -27,6 +27,13 @@
         <!-- Template Main CSS File -->
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 
+
+    <!-- DataTables -->
+    <!-- DataTables -->
+    <link rel="stylesheet" href="{{ asset('vendor/dataTable/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/dataTable/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/dataTable/datatables-buttons/css/buttons.bootstrap4.min.css') }}"> 
+
     <!-- =======================================================
     * Template Name: iPortfolio - v3.5.0
     * Template URL: https://bootstrapmade.com/iportfolio-bootstrap-portfolio-websites-template/
@@ -65,7 +72,25 @@
             <li><a href="/1438/about" class="nav-link scrollto"><i class="bx bx-user"></i> <span>About</span></a></li>
             <li><a href="/1438/resume" class="nav-link scrollto"><i class="bx bx-file-blank"></i> <span>Resume</span></a></li>
             <li><a href="/1438/portfolio" class="nav-link scrollto"><i class="bx bx-book-content"></i> <span>Portfolio</span></a></li>
-            <!-- <li><a href="#contact" class="nav-link scrollto"><i class="bx bx-envelope"></i> <span>Contact</span></a></li> -->
+            <li>
+              <a href="/1438/email" class="nav-link scrollto">
+                <i class="bx bx-envelope"></i>
+                <span>Emails 
+                  <span class="position-absolute top-5 start-20 translate-top badge rounded-pill bg-danger">
+                    @if(count($emails) >=1 )
+                      @foreach($emails as $emailCount)
+                        @if($emailCount->email_count > 100)
+                        99+ message(s).
+                        @elseif($emailCount->email_count == 0)
+                        @else
+                          {{$emailCount->email_count}} message(s).
+                        @endif
+                      @endforeach
+                    @endif
+                  </span>
+                </span>
+              </a>
+            </li>
           </ul>
         </nav><!-- .nav-menu -->
       </div>
@@ -81,7 +106,7 @@
 
     </main>
     <!-- End of Main Content -->
-
+    <br><br>
     <!-- ======= Footer ======= -->
     <footer id="footer">
       <div class="container">
@@ -121,63 +146,30 @@
 
   <!-- Common Javascript -->
   <script src="{{ asset('vendor/common.js') }}"></script>
+
   
 
-  <script type="text/javascript">
-    // $(document).ready(function(){
-    //   $('#editEduc').modal('show');
-    // });
-
-    $('.edit-educ').click(function(){
-      var educId = $(this).parents('p').attr('id');
-      // alert(educId);
-      $.ajax({
-        url:'education/'+educId+'/edit',
-        type:'GET',
-        success:function(data){
-           var value = data.split(",");
-
-            $('#eduID').val(value[0]);
-            $('#courseTakingUp').val(value[1]);
-            $('#sy').val(value[2]);
-            $('#schoolName').val(value[3]);
-
-            $('#editEduc').modal('show');
-
-            $('#updateEdu').click(function(){
-              var id = $('#eduID').val();
-              var courseTakingUp = $('#courseTakingUp').val();
-              var sy = $('#sy').val();
-              var schoolName = $('#schoolName').val();
-
-              $.ajax({
-                url:'/education/'+id+'/'+courseTakingUp+'/'+sy+'/'+schoolName,
-                type:'GET',
-                success:function(data){
-                  alert(data);
-                  // indow.location.href = window.location.href;
-                }
-              });
-            });
-        }
-      });
-    });
 
 
-    // $('.edit-educ').click(function(){
-    //   var educId = $(this).parents('p').attr('id');
-    //   $.ajax({
-    //     url:educId,
-    //     type:'GET',
-    //     success:function(data){
-    //       $('#editEduc').modal('show');
-    //     }
-    //   });
-    // });
 
-    // function modalshow(){
-    //   $('#editEduc').modal('show');
-    // }
 
-  </script>
+
+  <!-- jQuery -->
+<!-- <script src="{{ asset('vendor/dataTable/jquery/jquery.min.js') }}"></script> -->
+<!-- Bootstrap 4 -->
+<!-- <script src="{{ asset('vendor/dataTable/bootstrap/js/bootstrap.bundle.min.js') }}"></script> -->
+<!-- DataTables  & Plugins -->
+<script src="{{ asset('vendor/dataTable/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('vendor/dataTable/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('vendor/dataTable/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+<script src="{{ asset('vendor/dataTable/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('vendor/dataTable/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
+<script src="{{ asset('vendor/dataTable/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
+<!-- <script src="{{ asset('vendor/dataTable/jszip/jszip.min.js') }}"></script>
+<script src="{{ asset('vendor/dataTable/pdfmake/pdfmake.min.js') }}"></script>
+<script src="{{ asset('vendor/dataTable/pdfmake/vfs_fonts.js') }}"></script>
+<script src="{{ asset('vendor/dataTable/datatables-buttons/js/buttons.html5.min.js') }}"></script>
+<script src="{{ asset('vendor/dataTable/datatables-buttons/js/buttons.print.min.js') }}"></script>
+<script src="{{ asset('vendor/dataTable/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+ -->  
 </html>

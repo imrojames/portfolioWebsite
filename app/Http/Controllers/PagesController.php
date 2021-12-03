@@ -10,10 +10,19 @@ use App\Objective;
 use App\Education;
 use App\Experience;
 use App\Portfolio;
+use App\Email;
 use DB;
 
 class PagesController extends Controller
 {   
+    //Global variables
+    public $mail_count, $profile_info;
+
+    public function __construct()
+    {
+        $this->profile_info = DB::select('SELECT * FROM profiles');
+        $this->mail_count = DB::select('SELECT COUNT(status) AS email_count FROM emails WHERE status = "Unread"');
+    }
     //Front end
     public function index(){
     	$profiles = DB::select('SELECT * FROM profiles WHERE id = 1');
@@ -26,31 +35,43 @@ class PagesController extends Controller
     	return view ('frontEnd/index')->with(['profiles' => $profiles, 'abouts' => $abouts, 'objectives' => $objectives, 'educations' => $educations, 'experiences' => $experiences, 'portfolios' => $portfolios]);
     }
     
+    // $emails = DB::select('SELECT COUNT id FROM emails');
 
     //Revision code back end
     public function home(){
-        $profiles = DB::select('SELECT * FROM profiles');
-        return view('backEnd/devHome')->with(['profiles' => $profiles]);
+        $profiles = $this->profile_info;
+        $emails = $this->mail_count;
+        return view('backEnd/devHome')->with(['profiles' => $profiles, 'emails' => $emails]);
     }
 
     public function about(){
-        $profiles = DB::select('SELECT * FROM profiles');
+        $profiles = $this->profile_info;
         $abouts = DB::select('SELECT * FROM abouts');
-        return view('backEnd/devAbout')->with(['profiles' => $profiles, 'abouts' => $abouts]);
+        $emails = $this->mail_count;
+        return view('backEnd/devAbout')->with(['profiles' => $profiles, 'abouts' => $abouts, 'emails' => $emails]);
     }
 
     public function resume(){
-        $profiles = DB::select('SELECT * FROM profiles');
+        $profiles = $this->profile_info;
         $abouts = DB::select('SELECT * FROM abouts');
         $objectives = DB::select('SELECT * FROM objectives');
         $educations = DB::select('SELECT * FROM education');
         $experiences = DB::select('SELECT * FROM experiences');
-        return view('backEnd/devResume')->with(['profiles' => $profiles, 'objectives' => $objectives, 'educations' => $educations, 'abouts' => $abouts, 'experiences' => $experiences]);
+        $emails = $this->mail_count;
+        return view('backEnd/devResume')->with(['profiles' => $profiles, 'objectives' => $objectives, 'educations' => $educations, 'abouts' => $abouts, 'experiences' => $experiences, 'emails' => $emails]);
     }
 
     public function portfolio(){
-        $profiles = DB::select('SELECT * FROM profiles');
+        $profiles = $this->profile_info;
         $portfolios = DB::select('SELECT * FROM portfolios');
-        return view('backEnd/devPortfolio')->with(['profiles' => $profiles, 'portfolios' => $portfolios]);
+        $emails = $this->mail_count;
+        return view('backEnd/devPortfolio')->with(['profiles' => $profiles, 'portfolios' => $portfolios, 'emails' => $emails]);
+    }
+
+    public function inbox(){
+        $profiles = $this->profile_info;
+        $emails = $this->mail_count;
+        $all_mails = DB::select('SELECT * FROM emails ORDER BY created_at DESC');
+        return view('backEnd/devInbox')->with(['profiles' => $profiles, 'emails' => $emails, 'all_mails' => $all_mails]);
     }
 }

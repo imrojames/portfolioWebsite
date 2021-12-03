@@ -5,10 +5,19 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Profile;
+use App\Email;
 use DB;
 
 class ProfilesController extends Controller
 {
+    //Global variables
+    public $mail_count;
+
+    public function __construct()
+    {
+        $this->mail_count = DB::select('SELECT COUNT(status) AS email_count FROM emails WHERE status = "Unread"');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -59,8 +68,9 @@ class ProfilesController extends Controller
      */
     public function edit($id)
     {
+        $emails = $this->mail_count;
         $profiles = DB::select('SELECT * FROM profiles WHERE id = '. $id);
-        return view('backEnd/add_edit_forms/edit_profile_form')->with(['profiles' => $profiles]);
+        return view('backEnd/add_edit_forms/edit_profile_form')->with(['profiles' => $profiles, 'emails' => $emails]);
     }
 
     /**

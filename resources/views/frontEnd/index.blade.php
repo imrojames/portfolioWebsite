@@ -61,7 +61,7 @@
             <li><a href="#about" class="nav-link scrollto"><i class="bx bx-user"></i> <span>About</span></a></li>
             <li><a href="#resume" class="nav-link scrollto"><i class="bx bx-file-blank"></i> <span>Resume</span></a></li>
             <li><a href="#portfolio" class="nav-link scrollto"><i class="bx bx-book-content"></i> <span>Portfolio</span></a></li>
-            <!-- <li><a href="#contact" class="nav-link scrollto"><i class="bx bx-envelope"></i> <span>Contact</span></a></li> -->
+            <li><a href="#contact" class="nav-link scrollto"><i class="bx bx-envelope"></i> <span>Contact</span></a></li>
           </ul>
         </nav><!-- .nav-menu -->
       </div>
@@ -82,6 +82,8 @@
     </section><!-- End Hero -->
 
     <main id="main">
+
+      @include('alert/alert')
       <!-- ======= About Section ======= -->
       <section id="about" class="about">
         <div class="container">
@@ -210,7 +212,7 @@
           </div>
           <br><br><br><br><br>
           <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="100">
-          @if($portfolios >= 1)
+          @if(count($portfolios) > 0)
             @foreach($portfolios as $portfolio)
             <div class="col-lg-4 col-md-6 portfolio-item filter-app">
               <div class="portfolio-wrap">
@@ -230,49 +232,52 @@
         </div>
       </section><!-- End Portfolio Section -->
 
+      <br><br><br><br><br><br><br>
       <!-- ======= Contact Section ======= -->
-      <!-- <section id="contact" class="contact">
+      <section id="contact" class="contact">
         <div class="container">
 
           <div class="section-title">
             <h2>Contact</h2>
-            <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+            <p>If you have any suggestion or question about me to my website you can email me. Please fill out the form.</p>
           </div>
 
           <div class="row" data-aos="fade-in">
             <div class="col-lg-15 mt-5 mt-lg-0 d-flex align-items-stretch">
-              <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+              {!!Form::open(['action' => ['EmailsController@store'], 'method' => 'POST', 'enctype' => 'multipart/form-data', 'class' => 'php-email-form'])!!}
                 <div class="row">
                   <div class="form-group col-md-6">
                     <label for="name">Your Name</label>
-                    <input type="text" name="name" class="form-control" id="name" required>
+                    <input type="text" name="name" class="form-control" id="name">
+                    <small class="text-danger">{{$errors->first('name')}}</small>
                   </div>
                   <div class="form-group col-md-6">
                     <label for="name">Your Email</label>
-                    <input type="email" class="form-control" name="email" id="email" required>
+                    <input type="email" class="form-control" name="email" id="email">
+                    <small class="text-danger">{{$errors->first('name')}}</small>
                   </div>
                 </div>
                 <div class="form-group">
                   <label for="name">Subject</label>
-                  <input type="text" class="form-control" name="subject" id="subject" required>
+                  <input type="text" class="form-control" name="subject" id="subject">
                 </div>
                 <div class="form-group">
                   <label for="name">Message</label>
-                  <textarea class="form-control" name="message" rows="10" required></textarea>
+                  <textarea class="form-control" name="message" rows="10"></textarea>
+                  <small class="text-danger">{{$errors->first('name')}}</small>
                 </div>
                 <div class="my-3">
                   <div class="loading">Loading</div>
                   <div class="error-message"></div>
-                  <div class="sent-message">Your message has been sent. Thank you!</div>
                 </div>
-                <div class="text-center"><button type="submit">Send Message</button></div>
-              </form>
+                <div class="text-center"><button id="btn-send-email" type="submit">Send Message</button></div>
+              {!!Form::close()!!}
             </div>
 
           </div>
 
         </div>
-      </section> --><!-- End Contact Section -->
+      </section> <!-- End Contact Section
     </main>
 
     <!-- ======= Footer ======= -->
@@ -299,7 +304,7 @@
   <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
   <script src="{{ asset('vendor/glightbox/js/glightbox.min.js') }}"></script>
   <script src="{{ asset('vendor/isotope-layout/isotope.pkgd.min.js') }}"></script>
-  <script src="{{ asset('vendor/php-email-form/validate.js') }}"></script>
+  <!-- <script src="{{ asset('vendor/php-email-form/validate.js') }}"></script> -->
   <script src="{{ asset('vendor/purecounter/purecounter.js') }}"></script>
   <script src="{{ asset('vendor/swiper/swiper-bundle.min.js') }}"></script>
   <script src="{{ asset('vendor/typed.js/typed.min.js') }}"></script>
@@ -307,5 +312,12 @@
 
   <!-- Template Main JS File -->
   <script src="{{ asset('js/main.js') }}"></script>
+
+  <!-- JQuery CDN -->
+  <script src="{{ asset('vendor/jquery-2.2.3.min.js') }}"></script>
+
+  <!-- Common Javascript -->
+  <script src="{{ asset('vendor/common.js') }}"></script>
+
 
   </html>

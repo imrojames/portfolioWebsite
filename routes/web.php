@@ -16,6 +16,10 @@ use Illuminate\Support\Facades\Route;
 // front end route
 Route::get('/', 'PagesController@index');
 
+//Send email
+Route::resource('email', 'EmailsController');
+Route::get('email/{id}/delete', 'EmailsController@destroy');
+
 //back end route
 Route::get('/me', 'PagesController@me');
 
@@ -44,5 +48,6 @@ Route::get('/1438', 'PagesController@home');
 Route::get('/1438/about', 'PagesController@about');
 Route::get('/1438/resume', 'PagesController@resume');
 Route::get('/1438/portfolio', 'PagesController@portfolio');
+Route::get('/1438/email', 'PagesController@inbox');
 
 
