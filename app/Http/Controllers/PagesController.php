@@ -27,8 +27,8 @@ class PagesController extends Controller
     }
     //Front end
     public function index(){
-    	$abouts = DB::select('SELECT * FROM abouts WHERE id = 1');
-    	$objectives = DB::select('SELECT * FROM objectives WHERE id = 1');
+    	$abouts = DB::select('SELECT * FROM abouts');
+    	$objectives = DB::select('SELECT * FROM objectives');
         $educations = DB::select('SELECT * FROM education');
         $experiences = DB::select('SELECT * FROM experiences');
         $portfolios = DB::select('SELECT * FROM portfolios');
