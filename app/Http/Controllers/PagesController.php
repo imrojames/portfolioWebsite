@@ -22,15 +22,32 @@ class PagesController extends Controller
     {
         $this->profile_info = DB::select('SELECT * FROM profiles');
         $this->mail_count = DB::select('SELECT COUNT(status) AS email_count FROM emails WHERE status = "Unread"');
+
+        return "hai";
     }
     //Front end
     public function index(){
-    	$profiles = DB::select('SELECT * FROM profiles WHERE id = 1');
     	$abouts = DB::select('SELECT * FROM abouts WHERE id = 1');
     	$objectives = DB::select('SELECT * FROM objectives WHERE id = 1');
         $educations = DB::select('SELECT * FROM education');
         $experiences = DB::select('SELECT * FROM experiences');
         $portfolios = DB::select('SELECT * FROM portfolios');
+
+        //To check if profiles table has data
+        $profile_count = DB::select('SELECT COUNT(id) as profileCount FROM profiles');
+        foreach($profile_count as $p_count){
+            if ($p_count->profileCount == "0") {
+                //add default profile data
+                $default_profile = new Profile;
+                $default_profile->profile_fname = 'User';
+                $default_profile->profile_mname = 'U.';
+                $default_profile->profile_lname = 'User';
+                $default_profile->photo = 'no_image.png';
+                $default_profile->save();
+            }
+        }
+
+        $profiles = DB::select('SELECT * FROM profiles');
 
     	return view ('frontEnd/index')->with(['profiles' => $profiles, 'abouts' => $abouts, 'objectives' => $objectives, 'educations' => $educations, 'experiences' => $experiences, 'portfolios' => $portfolios]);
     }
