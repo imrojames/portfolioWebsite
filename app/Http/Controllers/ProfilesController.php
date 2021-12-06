@@ -103,11 +103,11 @@ class ProfilesController extends Controller
         }
 
         $profile = Profile::find($id);
-        if($request->hasFile('picture')){
-        if($profile->picture != 'no_image.png'){
-          Storage::delete('public/profile_pictures/'.$profile->photo);
-        }
-      }
+      //   if($request->hasFile('picture')){
+      //   if($profile->picture != 'no_profile_image.jpeg'){
+      //     Storage::delete('public/profile_pictures/'.$profile->photo);
+      //   }
+      // }
         $profile->profile_fname = $request->input('pfname');
         $profile->profile_mname = $request->input('pmname');
         $profile->profile_lname = $request->input('plname');

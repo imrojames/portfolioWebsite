@@ -4,7 +4,7 @@
   <section id="about" class="about">
     <div class="container">
       <div class="section-title">
-        @if($abouts >=1)
+        @if(count($abouts) >=1)
           @foreach($abouts as $about)
             <a href="/about/{{$about->id}}/edit">
               <h2 data-bs-toggle="modal" data-bs-target="#aboutModal">About<span class="bx bx-edit"></span></h2>
