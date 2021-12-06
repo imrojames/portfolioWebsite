@@ -53,14 +53,6 @@
             </tr>
             @endif
           @endforeach
-         @else
-          <tr>
-            <td></td>
-            <td></td>
-            <td>No email to show.</td>
-            <td></td>
-            <td></td>
-          </tr>
          @endif
          </tbody>
        </table>

@@ -38,7 +38,7 @@
         <a href="/education/create">
           <h3 class="resume-title">Education <span class="bx bx-plus"></span></h3>
         </a>
-        @if($educations >= 1)
+        @if(count($educations) >= 1)
         @foreach($educations as $educ)
         <div class="resume-item">
           <h4>{{ $educ->courseTakingUp }}</h4>
@@ -52,16 +52,14 @@
         </div>
         @endforeach
         @else
-        <div class="resume-item">
-          <h4>No Education background</h4>
-        </div>
+        <li>No education background found.</li>
         @endif
       </div>
       <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
         <a href="/experience/create">
           <h3 class="resume-title">Professional Experience <span class="bx bx-plus"></span></h3>
         </a>
-        @if($experiences >= 1)
+        @if(count($experiences) >= 1)
         @foreach($experiences as $exp)
         <div class="resume-item">
           <h4>{{$exp->position}}</h4>
@@ -79,6 +77,8 @@
           </p>
         </div>
         @endforeach
+        @else
+        <li>No professional experience found.</li>
         @endif
       </div>
     </div>

@@ -19,10 +19,10 @@
     @foreach($profiles as $profile)
     {!!Form::open(['action' => ['ProfilesController@update', $profile->id], 'method' => 'POST', 'enctype' => 'multipart/form-data'])!!}
     <div class="form-group">
-      <label>Note: Fields with asterisk(*) are required.</label>
+      <label>Note: Fields with asterisk(<strong class="text-danger">*</strong>) are required.</label>
     </div>
     <div class="form-group">
-      <label>First Name <span class="text-danger">*</span></label>
+      <label>First Name <strong class="text-danger">*</strong></label>
       <input class="form-control" name="pfname" placeholder="First name" value="{{ $profile->profile_fname }}"></input>
       @if($errors->first('pfname') == 'The pfname field is required.')
         <small class="text-danger">The first name field is required.</small>
@@ -39,7 +39,7 @@
     </div>
     <br>
     <div class="form-group">
-      <label>Last Name <span class="text-danger">*</span></label>
+      <label>Last Name <strong class="text-danger">*</strong></label>
       <input class="form-control" name="plname" placeholder="Last name" value="{{ $profile->profile_lname }}"></input>
       @if($errors->first('plname') == 'The plname field is required.')
         <small class="text-danger">The last name field is required.</small>

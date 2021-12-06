@@ -95,13 +95,12 @@
         </nav><!-- .nav-menu -->
       </div>
     </header><!-- End Header -->
-
+     @include('alert/alert')
     @yield('home')
 
     <!-- Main Content -->
     <main id="main">
       <!-- //Main Content here! -->
-      @include('alert/alert')
       @yield('content')
 
     </main>

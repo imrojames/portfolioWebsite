@@ -35,7 +35,7 @@
         </div>
         @endforeach
       @else
-        <p>No portfolio found.</p>
+        <li>No portfolio found.</li>
       @endif
     </div>
   </div>

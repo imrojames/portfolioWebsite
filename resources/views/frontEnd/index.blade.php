@@ -158,7 +158,7 @@
               </div>
 
               <h3 class="resume-title">Education</h3>
-              @if($educations >= 1)
+              @if(count($educations) >= 1)
               @foreach($educations as $educ)
               <div class="resume-item">
                 <h4>{{ $educ->courseTakingUp }}</h4>
@@ -167,14 +167,12 @@
               </div>
               @endforeach
               @else
-              <div class="resume-item">
-                <h4>No Education background</h4>
-              </div>
+              <li>No education background found.</li>
               @endif
             </div>
             <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
               <h3 class="resume-title">Professional Experience</h3>
-              @if($experiences >= 1)
+              @if(count($experiences) >= 1)
               @foreach($experiences as $exp)
               <div class="resume-item">
                 <h4>{{$exp->position}}</h4>
@@ -187,6 +185,8 @@
                 </ul>
               </div>
               @endforeach
+              @else
+              <li>No professional experience found.</li>
               @endif
             </div>
           </div>
@@ -210,7 +210,6 @@
               </ul>
             </div>
           </div>
-          <br><br><br><br><br>
           <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="100">
           @if(count($portfolios) > 0)
             @foreach($portfolios as $portfolio)
@@ -226,8 +225,11 @@
             </div>
             @endforeach
           @else
-            <p>No portfolio found.</p>
+            <li>No portfolio found.</li>
           @endif
+          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+            <br><br>
+          </div>
           </div>
         </div>
       </section><!-- End Portfolio Section -->
@@ -239,36 +241,49 @@
 
           <div class="section-title">
             <h2>Contact</h2>
-            <p>If you have any suggestion or question about me to my website you can email me. Please fill out the form.</p>
+            <p>If you have any questions or suggestions you can leave a message below. Just fill out the form .</p>
           </div>
 
           <div class="row" data-aos="fade-in">
             <div class="col-lg-15 mt-5 mt-lg-0 d-flex align-items-stretch">
               {!!Form::open(['action' => ['EmailsController@store'], 'method' => 'POST', 'enctype' => 'multipart/form-data', 'class' => 'php-email-form'])!!}
+              <!-- alert message if email sent -->
+              @if(session('success'))
+              <div class="alert alert-info alert-dismissible fade show" role="alert">
+                {{session('success')}}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+              @endif
+
                 <div class="row">
                   <div class="form-group col-md-6">
-                    <label for="name">Your Name</label>
+                    <label>Note: Fields with asterisk (<strong class="text-danger">*</strong>) are required.</label>
+                  </div>
+                  <div class="class="form-group col-md-6"">
+                    
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="name">Your Name <strong class="text-danger">*</strong></label>
                     <input type="text" name="name" class="form-control" id="name">
                     <small class="text-danger">{{$errors->first('name')}}</small>
                   </div>
                   <div class="form-group col-md-6">
-                    <label for="name">Your Email</label>
+                    <label for="name">Your Email <strong class="text-danger">*</strong></label>
                     <input type="email" class="form-control" name="email" id="email">
                     <small class="text-danger">{{$errors->first('name')}}</small>
                   </div>
                 </div>
                 <div class="form-group">
-                  <label for="name">Subject</label>
+                  <label for="name">Subject <span>(optional)</span></label>
                   <input type="text" class="form-control" name="subject" id="subject">
                 </div>
                 <div class="form-group">
-                  <label for="name">Message</label>
+                  <label for="name">Message <strong class="text-danger">*</strong></label>
                   <textarea class="form-control" name="message" rows="10"></textarea>
                   <small class="text-danger">{{$errors->first('name')}}</small>
                 </div>
                 <div class="my-3">
                   <div class="loading">Loading</div>
-                  <div class="error-message"></div>
                 </div>
                 <div class="text-center"><button id="btn-send-email" type="submit">Send Message</button></div>
               {!!Form::close()!!}

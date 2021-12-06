@@ -19,23 +19,23 @@
       @foreach($abouts as $about)
         {!!Form::open(['action' => ['AboutsController@update', $about->id], 'method' => 'POST', 'enctype' => 'multipart/form-data'])!!}
           <div class="form-group">
-            <span>Note: Fields with asterisk(*) are required.</span>
+            <span>Note: Fields with asterisk(<strong class="text-danger">*</strong>) are required.</span>
           </div>
           <div class="form-group">
-            <label>Primary quotation <span class="text-danger">*</span></label>
+            <label>Primary quotation <strong class="text-danger">*</strong></label>
             <textarea class="form-control" name="primaryQuotation" placeholder="Primary quotation">{{$about->primary_qoutation}}</textarea>
             <small class="text-danger">{{$errors->first('primaryQuotation')}}</small>
           </div>
 
           <br>
           <div class="form-group">
-            <label>Secondary quotation <span class="text-danger">*</span></label>
+            <label>Secondary quotation <strong class="text-danger">*</strong></label>
             <textarea class="form-control" name="secQuotation" placeholder="Seconday quotation">{{ $about->secondary_qoutation }}</textarea>
             <small class="text-danger">{{$errors->first('secQuotation')}}</small>
           </div>
           <br>
           <div class="form-group">
-            <label>Birthdate <span class="text-danger">*</span></label>
+            <label>Birthdate <span>(MM-DD-YYYY)</span><strong class="text-danger">*</strong></label>
             <input type="date" class="form-control" name="bday" value="{{ $about->bday }}"></input>
             @if($errors->first('bday'))
               <small class="text-danger">The birthdate field is required.</small>
@@ -43,7 +43,7 @@
           </div>
           <br>
           <div class="form-group">
-            <label>Contact no. <span class="text-danger">*</span></label>
+            <label>Contact no. <strong class="text-danger">*</strong></label>
             <input type="text" name="contact" class="form-control" placeholder="Contact no." value="{{ $about->phoneNo }}">
             @if($errors->first('contact') == 'The contact field is required.')
               <small class="text-danger">The contact field is required</small>
@@ -55,7 +55,7 @@
           </div>
           <br>
           <div class="form-group">
-            <label>Based <span class="text-danger">*</span></label>
+            <label>Based / Address <strong class="text-danger">*</strong></label>
             <input type="text" name="address" class="form-control" placeholder="Based / Address" value="{{ $about->address }}">
             @if($errors->first('address'))
               <small class="text-danger">The address field is required.</small>
@@ -63,7 +63,7 @@
           </div>
           <br>
           <div class="form-group">
-            <label>Degree <span class="text-danger">*</span></label>
+            <label>Degree <strong class="text-danger">*</strong></label>
             <select class="form-control select2" name="degree">
                 @if($about->degree == "Elemetary")
                   <option value="Elemtary" selected>Elemtary</option>
@@ -120,7 +120,7 @@
           </div>
           <br>
           <div class="form-group">
-            <label>Course <span class="text-danger">*</span></label>
+            <label>Course <strong class="text-danger">*</strong></label>
             <input type="text" name="course" class="form-control" placeholder="Course" value="{{ $about->course }}">
             @if($errors->first('course'))
               <small class="text-danger">The course field is required.</small>
@@ -128,7 +128,7 @@
           </div>
           <br>
           <div class="form-group">
-            <label>Email <span class="text-danger">*</span></label>
+            <label>Email <strong class="text-danger">*</strong></label>
             <input type="email" name="emailAdd" class="form-control" placeholder="Email address" value="{{ $about->email }}">
             @if($errors->first('emailAdd') == 'The emailAdd must be a valid email address.')
               <small class="text-danger">The email must be a valid email address.</small>

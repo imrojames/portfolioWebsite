@@ -1,6 +1,6 @@
 // Notification message fadeIn and fadeOut
 $(document).ready(function(){
-  $('.alert').fadeIn(300).delay(1500).fadeOut(400);
+  $('#alert').fadeIn(300).delay(1500).fadeOut(400);
 });
 
 $(function () {
