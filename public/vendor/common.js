@@ -113,3 +113,13 @@ $('.delete-email').click(function(){
 	});
 });
 
+// copy email button
+$('.copy_email').click(function(){
+	var copy = document.getElementById('email');
+
+	copy.select();
+	copy.setSelectionRange(0,99999);
+
+	navigator.clipboard.writeText(copy.value);
+
+});

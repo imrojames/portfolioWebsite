@@ -17,7 +17,8 @@
         <li>Inbox</li>
       </ol>
     </div>
-    <h6>From: {{$show->name}} - ({{$show->email}})</h6>
+    <h4 id="{{$show->email}}">From: {{$show->name}} - ({{$show->email}}) <a href="#" class="copy_email"><span class="bx bx-copy-alt" title="copy email"></span></a></h4>
+    <input value="{{$show->email}}" id="email" hidden=""></input>
     <p> {{ date('F d, Y | h:i A', strtotime($show->created_at)) }} </p>
   </div>
 </section><!-- End Breadcrumbs -->
